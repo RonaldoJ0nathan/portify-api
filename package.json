@@ -1,10 +1,14 @@
 {
   "name": "portify-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "RESTful API for managing personal portfolio data, built with NestJS and TypeScript.",
+  "author": "Ronaldo Jonathan <ronaldoj.dev@gmail.com>",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RonaldoJ0nathan/portify-api.git"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
