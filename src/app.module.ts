@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { appConfig, envValidationSchema } from './config';
+import { PrismaModule } from './database/prisma.module';
 import { HealthModule } from './modules/health/health.module';
 
 @Module({
@@ -12,6 +13,7 @@ import { HealthModule } from './modules/health/health.module';
       load: [appConfig],
       validate: (config) => envValidationSchema.parse(config),
     }),
+    PrismaModule,
     HealthModule,
   ],
   controllers: [AppController],
