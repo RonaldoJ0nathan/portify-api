@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { appConfig, envValidationSchema } from './config';
+import { HealthModule } from './modules/health/health.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -10,6 +11,7 @@ import { appConfig, envValidationSchema } from './config';
       load: [appConfig],
       validate: (config) => envValidationSchema.parse(config),
     }),
+    HealthModule,
   ],
   controllers: [AppController],
 })
