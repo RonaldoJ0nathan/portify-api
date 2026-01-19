@@ -1,12 +1,26 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
 
-@Controller()
+@Controller({ path: '', version: '1' })
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getRoot() {
+    const response = {
+      name: 'Portify API',
+      status: 'running',
+      version: 'v1',
+      documentation: '/docs',
+      health: '/health',
+    };
+
+    if (process.env.NODE_ENV === 'development') {
+      return {
+        ...response,
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV,
+        port: process.env.PORT || 3000,
+      };
+    }
+
+    return response;
   }
 }
