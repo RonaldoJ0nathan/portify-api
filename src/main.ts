@@ -8,6 +8,10 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('api', {
+    exclude: ['health', 'metrics', 'docs'],
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
