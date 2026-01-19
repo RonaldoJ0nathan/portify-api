@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: portify-postgres
+    restart: unless-stopped
+    ports:
+      - '${DB_PORT:-5432}:5432'
+    environment:
+      POSTGRES_USER: ${DB_USER:-portify}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-portify_dev_password}
+      POSTGRES_DB: ${DB_NAME:-portify_db}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'pg_isready -U ${DB_USER:-portify} -d ${DB_NAME:-portify_db}',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - portify-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  portify-network:
+    driver: bridge
